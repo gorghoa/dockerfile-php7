@@ -15,19 +15,19 @@ RUN apt-get update && apt-get install -y \
     libsm6 \
     libxrender-dev \
     mysql-client \
-    php7.1-cli \
-    php7.1-imagick \
-    php7.1-curl \
-    php7.1-dom \
-    php7.1-gd \
-    php7.1-intl \
-    php7.1-json \
-    php7.1-mbstring \
-    php7.1-mcrypt \
-    php7.1-mysql  \
-    php7.1-pgsql  \
-    php7.1-sqlite3 \
-    php7.1-xsl \
+    php7.2-cli \
+    php7.2-imagick \
+    php7.2-curl \
+    php7.2-dom \
+    php7.2-gd \
+    php7.2-intl \
+    php7.2-json \
+    php7.2-mbstring \
+    php7.2-mysql  \
+    php7.2-pgsql  \
+    php7.2-sqlite3 \
+    php7.2-xsl \
+    php7.2-zip \
     ssmtp \
     unzip \
     vim \
@@ -41,6 +41,11 @@ COPY ./install-composer.sh /root/
 
 RUN /bin/bash /root/install-composer.sh \
     && composer global require hirak/prestissimo friendsofphp/php-cs-fixer
+
+RUN wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -q -O /opt/chrome.deb \
+    && apt update && apt install -y /opt/chrome.deb \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc
 
 WORKDIR /app
 
