@@ -1,14 +1,11 @@
-FROM debian:jessie
+FROM debian:stretch
+MAINTAINER Rodrigue Villetard <rodrigue@villetard.tech>
 
-RUN apt-get update \
-    && apt-get install -y curl \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*  /usr/share/doc
-
-RUN echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb.list
-
-RUN curl https://www.dotdeb.org/dotdeb.gpg > dotdeb.gpg \
-    && apt-key add dotdeb.gpg \
-    && apt-get clean \
+RUN apt update \
+    && apt install -y curl wget apt-transport-https lsb-release ca-certificates \
+    && curl  https://packages.sury.org/php/apt.gpg > /etc/apt/trusted.gpg.d/php.gpg \
+    && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
+    && apt update \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*  /usr/share/doc
 
 RUN apt-get update && apt-get install -y \
@@ -18,19 +15,19 @@ RUN apt-get update && apt-get install -y \
     libsm6 \
     libxrender-dev \
     mysql-client \
-    php7.0-cli \
-    php7.0-imagick \
-    php7.0-curl \
-    php7.0-dom \
-    php7.0-gd \
-    php7.0-intl \
-    php7.0-json \
-    php7.0-mbstring \
-    php7.0-mcrypt \
-    php7.0-mysql  \
-    php7.0-pgsql  \
-    php7.0-sqlite3 \
-    php7.0-xsl \
+    php7.2-cli \
+    php7.2-imagick \
+    php7.2-curl \
+    php7.2-dom \
+    php7.2-gd \
+    php7.2-intl \
+    php7.2-json \
+    php7.2-mbstring \
+    php7.2-mysql  \
+    php7.2-pgsql  \
+    php7.2-sqlite3 \
+    php7.2-xsl \
+    php7.2-zip \
     ssmtp \
     unzip \
     vim \
@@ -40,12 +37,15 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"  \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename composer \
-    && php -r "unlink('composer-setup.php');"
+COPY ./install-composer.sh /root/
 
-RUN composer global require hirak/prestissimo friendsofphp/php-cs-fixer
+RUN /bin/bash /root/install-composer.sh \
+    && composer global require hirak/prestissimo friendsofphp/php-cs-fixer
+
+RUN wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -q -O /opt/chrome.deb \
+    && apt update && apt install -y /opt/chrome.deb \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc
 
 WORKDIR /app
 
