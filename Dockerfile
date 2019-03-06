@@ -28,6 +28,8 @@ RUN apt-get update && apt-get install -y \
     php7.3-sqlite3 \
     php7.3-xsl \
     php7.3-zip \
+    php7.3-gmp \
+    php7.3-bcmath \
     ssmtp \
     unzip \
     vim \
