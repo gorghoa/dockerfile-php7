@@ -14,23 +14,22 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libsm6 \
     libxrender-dev \
-    mysql-client \
-    php7.3-cli \
-    php7.3-imagick \
-    php7.3-curl \
-    php7.3-dom \
-    php7.3-gd \
-    php7.3-intl \
-    php7.3-json \
-    php7.3-mbstring \
-    php7.3-mysql  \
-    php7.3-pgsql  \
-    php7.3-sqlite3 \
-    php7.3-xsl \
-    php7.3-zip \
-    php7.3-gmp \
-    php7.3-bcmath \
-    ssmtp \
+    php7.4-cli \
+    php7.4-imagick \
+    php7.4-curl \
+    php7.4-dom \
+    php7.4-gd \
+    php7.4-intl \
+    php7.4-json \
+    php7.4-mbstring \
+    php7.4-mysql  \
+    php7.4-pgsql  \
+    php7.4-sqlite3 \
+    php7.4-xsl \
+    php7.4-zip \
+    php7.4-gmp \
+    php7.4-bcmath \
+    msmtp \
     unzip \
     vim \
     xfonts-base \
@@ -42,14 +41,14 @@ RUN apt-get update && apt-get install -y \
 COPY ./install-composer.sh /root/
 
 RUN /bin/bash /root/install-composer.sh \
-    && composer global require hirak/prestissimo friendsofphp/php-cs-fixer
+    && composer global require hirak/prestissimo friendsofphp/php-cs-fixer phpstan/phpstan
 
-RUN wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -q -O /opt/chrome.deb \
-    && apt update && apt install -y /opt/chrome.deb \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc
+
+RUN wget -q -O ~/FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64" \
+    && tar xjf ~/FirefoxSetup.tar.bz2 -C /opt/ \
+    && ln -s /opt/firefox/firefox /usr/local/bin/firefox \
+    && rm ~/FirefoxSetup.tar.bz2
 
 WORKDIR /app
 
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.composer/vendor/bin:/app/vendor/bin
-
