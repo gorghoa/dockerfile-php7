@@ -14,21 +14,21 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libsm6 \
     libxrender-dev \
-    php7.1-cli \
-    php7.1-imagick \
-    php7.1-curl \
-    php7.1-dom \
-    php7.1-gd \
-    php7.1-intl \
-    php7.1-json \
-    php7.1-mbstring \
-    php7.1-mysql  \
-    php7.1-pgsql  \
-    php7.1-sqlite3 \
-    php7.1-xsl \
-    php7.1-zip \
-    php7.1-gmp \
-    php7.1-bcmath \
+    php5.6-cli \
+    php5.6-imagick \
+    php5.6-curl \
+    php5.6-dom \
+    php5.6-gd \
+    php5.6-intl \
+    php5.6-json \
+    php5.6-mbstring \
+    php5.6-mysql  \
+    php5.6-pgsql  \
+    php5.6-sqlite3 \
+    php5.6-xsl \
+    php5.6-zip \
+    php5.6-gmp \
+    php5.6-bcmath \
     msmtp \
     unzip \
     vim \
