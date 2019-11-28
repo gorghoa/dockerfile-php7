@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 MAINTAINER Rodrigue Villetard <rodrigue@villetard.tech>
 
 RUN apt update \
