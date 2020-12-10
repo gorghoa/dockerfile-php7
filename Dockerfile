@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y \
 COPY ./install-composer.sh /root/
 
 RUN /bin/bash /root/install-composer.sh \
-    && composer global friendsofphp/php-cs-fixer phpstan/phpstan
+    && composer global require friendsofphp/php-cs-fixer phpstan/phpstan
 
 
 RUN wget -q -O ~/FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64" \
