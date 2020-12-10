@@ -14,21 +14,20 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libsm6 \
     libxrender-dev \
-    php7.4-cli \
-    php7.4-imagick \
-    php7.4-curl \
-    php7.4-dom \
-    php7.4-gd \
-    php7.4-intl \
-    php7.4-json \
-    php7.4-mbstring \
-    php7.4-mysql  \
-    php7.4-pgsql  \
-    php7.4-sqlite3 \
-    php7.4-xsl \
-    php7.4-zip \
-    php7.4-gmp \
-    php7.4-bcmath \
+    php8.0-cli \
+    php8.0-imagick \
+    php8.0-curl \
+    php8.0-dom \
+    php8.0-gd \
+    php8.0-intl \
+    php8.0-mbstring \
+    php8.0-mysql  \
+    php8.0-pgsql  \
+    php8.0-sqlite3 \
+    php8.0-xsl \
+    php8.0-zip \
+    php8.0-gmp \
+    php8.0-bcmath \
     msmtp \
     unzip \
     vim \
@@ -41,7 +40,7 @@ RUN apt-get update && apt-get install -y \
 COPY ./install-composer.sh /root/
 
 RUN /bin/bash /root/install-composer.sh \
-    && composer global require hirak/prestissimo friendsofphp/php-cs-fixer phpstan/phpstan
+    && composer global friendsofphp/php-cs-fixer phpstan/phpstan
 
 
 RUN wget -q -O ~/FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64" \
